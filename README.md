@@ -1,4 +1,4 @@
-# Module 13: gglot2
+# ggplot2
 
 Being able to create **visualizations** (graphical representations) of data is a key step in being able to _communicate_ information and findings to others. In this module you will learn to use the **`ggplot2`** library to declaratively make beautiful plots or charts of your data.
 Although R does provide built-in plotting functions, the `ggplot2` library implements the **Grammar of Graphics** (similar to how `dplyr` implements a _Grammar of Data Manipulation_; indeed, both packages were developed by the same person). This makes it particularly effective for describing how visualizations should represent data, and has turned it into the preeminent plotting library in R.
@@ -6,32 +6,7 @@ Learning this library will allow you to easily make nearly any kind of (static) 
 
 (Examples in this module adapted from _R for Data Science_).
 
-
-
-
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Contents**
-
-- [Resources](#resources)
-- [A Grammar of Graphics](#a-grammar-of-graphics)
-- [Basic Plotting with `ggplot2`](#basic-plotting-with-ggplot2)
-  - [Aesthetic Mappings](#aesthetic-mappings)
-- [Complex Plots](#complex-plots)
-  - [Specifying Geometry](#specifying-geometry)
-    - [Statistical Transformations](#statistical-transformations)
-    - [Position Adjustments](#position-adjustments)
-  - [Styling with Scales](#styling-with-scales)
-    - [Color Scales](#color-scales)
-  - [Coordinate Systems](#coordinate-systems)
-  - [Facets](#facets)
-  - [Labels & Annotations](#labels-&-annotations)
-- [Other Visualization Libraries](#other-visualization-libraries)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Resources
+Helpful links:
 
 - [gglot2 Documentation](http://ggplot2.tidyverse.org/) (particularly the [function reference](http://ggplot2.tidyverse.org/reference/index.html))
 - [ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf) (see also [here](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/))
@@ -88,7 +63,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-![plot of chunk basic_mpg](img/basic_mpg-1.png)
+![plot of chunk basic_mpg]m14-imgs/basic_mpg-1.png)
 
 To walk through the above code:
 
@@ -117,7 +92,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-![plot of chunk aes_color](img/aes_color-1.png)
+![plot of chunk aes_color]m14-imgs/aes_color-1.png)
 
 (`ggplot2` will even create a legend for you!)
 
@@ -129,7 +104,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")  # blue points!
 ```
 
-![plot of chunk color_blue](img/color_blue-1.png)
+![plot of chunk color_blue]m14-imgs/color_blue-1.png)
 
 
 ## Complex Plots
@@ -173,7 +148,7 @@ ggplot(data = mpg) +
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
 
-![plot of chunk multi_geom](img/multi_geom-1.png)
+![plot of chunk multi_geom]m14-imgs/multi_geom-1.png)
 
 Of course the aesthetics for each `geom` can be different, so you could show multiple lines on the same plot (or with different colors, styles, etc). It's also possible to give each `geom` a different `data` argument, so that you can show multiple data sets in the same plot.
 
@@ -200,7 +175,7 @@ ggplot(data = mpg) +
   stat_bin(aes(x=hwy, color=hwy), binwidth=4)  # binned into groups of 4 units
 ```
 
-![plot of chunk stat_summary](img/stat_summary-1.png)
+![plot of chunk stat_summary]m14-imgs/stat_summary-1.png)
 
 Notice the above chart is actually a [histogram](https://en.wikipedia.org/wiki/Histogram)! Indeed, almost every `stat` transformation corresponds to a particular `geom` (and vice versa) by default. Thus they can often be used interchangeably, depending on how you want to emphasize your layer creation.
 
@@ -223,7 +198,7 @@ ggplot(data = mpg) +
   geom_bar(mapping = aes(x = hwy, fill=class))  # fill color, not outline color
 ```
 
-![plot of chunk stacked_bar](img/stacked_bar-1.png)
+![plot of chunk stacked_bar]m14-imgs/stacked_bar-1.png)
 
 The `geom_bar` by default uses a position adjustment of `"stack"`, which makes each "bar" a high appropriate to its value and _stacks_ them on top of each other. We can use the **`position`** argument to specify what position adjustment rules to follow:
 
@@ -317,7 +292,7 @@ ggplot(data = mpg) +
   scale_color_brewer(palette = "Set3")
 ```
 
-![plot of chunk brewer_point](img/brewer_point-1.png)
+![plot of chunk brewer_point]m14-imgs/brewer_point-1.png)
 
 Note that you can get the palette name from the _colorbrewer_ website by looking at the `scheme` query parameter in the URL. Or see the diagram [here](https://bl.ocks.org/mbostock/5577023) and hover the mouse over each palette for the name.
 
@@ -350,7 +325,7 @@ ggplot(data = mpg) +
   facet_wrap(~class)
 ```
 
-![plot of chunk facets](img/facets-1.png)
+![plot of chunk facets]m14-imgs/facets-1.png)
 
 Note that the argument to `facet_wrap()` function is written with a tilde (**`~`**) in front of it. This specifies that the column name should be treated as a **formula**. A formula is a bit like an "equation" in mathematics; it's like a string representing what set of operations you want to perform (putting the column name in a string also works in this simple case). Formulas are in fact the same structure used with _standard evaluation_ in `dplyr`; putting a `~` in front of an expression (such as `~ desc(colname)`) allows SE to work.
 
@@ -372,7 +347,7 @@ ggplot(data = mpg) +
        color = "Car Type")  # legend label for the "color" property
 ```
 
-![plot of chunk labels](img/labels-1.png)
+![plot of chunk labels]m14-imgs/labels-1.png)
 
 It is possible to add labels into the plot itself (e.g., to label each point or line) by adding a new `geom_text` or `geom_label` to the plot; effectively, you're plotting an extra set of data which happen to be the variable names:
 
@@ -388,7 +363,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +  # same mapping for all 
   geom_label(data = best_in_class, mapping = aes(label = model), alpha = 0.5)
 ```
 
-![plot of chunk annotations](img/annotations-1.png)
+![plot of chunk annotations]m14-imgs/annotations-1.png)
 
 "R for Data Science" (linked in the resources) recommends using the [`ggrepel`](https://github.com/slowkow/ggrepel) package to help position labels.
 
